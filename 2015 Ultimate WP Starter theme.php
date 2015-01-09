@@ -1,217 +1,33 @@
-2015 Ultimate WP Starter theme
 
-Ok, Ashley added to folder and gallery.html added for demo
-from http://ashleydw.github.io/lightbox/
-
-TO DO:
-
-Maybe? https://github.com/taylormsj/acf-cf7 - CF7 for ACF :)
-WP Security Audit Log : https://wordpress.org/plugins/wp-security-audit-log/
-https://wordpress.org/plugins/ip-blacklist-cloud/
-
-All I want from Bootstrap it seems is the col-md-* type
-grid code and the responsive utilities. As of todays version of 
-Bootstrap (11.17.14 v3.3.1) here's what you need: 
-line 1389 - 2296 - includes basic table styling
-and 
-6038 - the end of the doc. 
-
-I have included it in this folder, 
-as bootstrap.darklit.css and bootstrap.darklit.min.css
-
-
-
-
-
-Export field groups to PHP from ACF and include in theme :
-
-if(function_exists("register_field_group"))
-{
-	register_field_group(array (
-		'id' => 'acf_home-page',
-		'title' => 'Home Page',
-		'fields' => array (
-			array (
-				'key' => 'field_545fcdb26deda',
-				'label' => 'Green Area Text',
-				'name' => 'green_area_text',
-				'type' => 'textarea',
-				'default_value' => '',
-				'placeholder' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'formatting' => 'br',
-			),
-			array (
-				'key' => 'field_545fce512de29',
-				'label' => 'Green Area Name',
-				'name' => 'green_area_name',
-				'type' => 'text',
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'formatting' => 'html',
-				'maxlength' => '',
-			),
-		),
-		'location' => array (
-			array (
-				array (
-					'param' => 'page',
-					'operator' => '==',
-					'value' => '508',
-					'order_no' => 0,
-					'group_no' => 0,
-				),
-			),
-		),
-		'options' => array (
-			'position' => 'normal',
-			'layout' => 'no_box',
-			'hide_on_screen' => array (
-			),
-		),
-		'menu_order' => 0,
-	));
-}
-
-// documentation
-
-Instructions
-
-    Copy the PHP code generated
-    Paste into your functions.php file
-    To activate any Add-ons, edit and use the code in the first few lines.
-
-
-Notes
-
-Registered field groups will not appear in the list of editable field groups. This is useful for including fields in themes.
-
-Please note that if you export and register field groups within the same WP, you will see duplicate fields on your edit screens. To fix this, please move the original field group to the trash or remove the code from your functions.php file.
-
-
-Include in theme
-
-The Advanced Custom Fields plugin can be included within a theme. To do so, move the ACF plugin inside your theme and add the following code to your functions.php file:
-
-include_once('advanced-custom-fields/acf.php');
-
-To remove all visual interfaces from the ACF plugin, you can use a constant to enable lite mode. Add the following code to your functions.php file before the include_once code:
-
-define( 'ACF_LITE', true );
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////////
 
 So you got a new project. Here's what to do:
 
-Go to underscores.me and get a custom starter
-Go to http://getbootstrap.com and get bootstrap (minified produciton one)
+1. Go to underscores.me and get a custom starter
+
+2. Go to http://getbootstrap.com and get bootstrap (minified produciton one)
 
 Extract and open both side by side
 
 Copy the css folder from BS to the Underscores theme
 Same with Fonts
-Then opent he BS JS folder and copy the files to the js folder in the theme
+Then open the BS JS folder and copy the files to the js folder in the theme
 
-Crap, that was almost too easy.
+Copy "class-tgm-plugin-activation.php" over to the theme root folder.
 
-Fine, now it gets a little harder...
+Now time to open up functions.php
 
-Copy /home/george/Copy/class-tgm-plugin-activation.php
-over to the theme root folder.
-
-Now time to open up functions.php - BWAHAHAHAHA!!!
-
-Find the one little "register_sidebar" they have, and paste in these below it:
-
-========================================
-A huge set of commented out widgets
-========================================
-/*
-register_sidebar(array(
-    'name'          => __('Primary', 'dakota-plains'),
-    'id'            => 'sidebar-primary',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-
-  register_sidebar(array(
-    'name'          => __('Footer', 'dakota-plains'),
-    'id'            => 'sidebar-footer',
-    'description'   => 'Top left footer branding area',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-
-  register_sidebar(array(
-    'name'          => __('Footer 2', 'dakota-plains'),
-    'id'            => 'sidebar-footer-2',
-    'description'   => 'Copyright info',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-
-  register_sidebar(array(
-    'name'          => __('Footer 3', 'dakota-plains'),
-    'id'            => 'sidebar-footer-3',
-    'description'   => 'Bottom Left Menu Area',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-  
-  register_sidebar(array(
-    'name'          => __('Footer Copyright Left', 'dakota-plains'),
-    'id'            => 'sidebar-footer-4',
-    'description'   => 'Below Footer Widgets, LEFT SIDE',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));  
-  register_sidebar(array(
-    'name'          => __('Footer Copyright Right', 'dakota-plains'),
-    'id'            => 'sidebar-footer-5',
-    'description'   => 'Below Footer Widgets, RIGHT SIDE',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));   
-  register_sidebar(array(
-    'name'          => __('Far right Wider footer widget', 'dakota-plains'),
-    'id'            => 'sidebar-footer-6',
-    'description'   => 'Far right wide footer section with icons at the top.',
-    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
-    'after_widget'  => '</div></section>',
-    'before_title'  => '<h3>',
-    'after_title'   => '</h3>',
-  ));
-*/  
+**If you need extra widget areas, there's code at the bottom**
 
 
-Awesome. Next up, modify the "enqueue_scripts" and styles stuff
 
-Find this : 
+Now to Modify the "enqueue_scripts" and styles stuff
+
+in Functions.php Find this : 
 
 /**
  * Enqueue scripts and styles.
- */
+ **/
 
 
 For me it was on line 162
@@ -220,10 +36,9 @@ underscore to trump BS if there's a conflict.
 
 Also add the Slick files to the right folders, totally forgot.
 
+Here is my complete one for the theme I'm working on while making these notes:
 
-Here is my complete one for this theme:
-
-// CNTRL+H "dakota-plains" with the current theme slug
+// CNTRL+H "THEME_NAME" with the current theme slug
 <?php
 /*
 ===============================================
@@ -231,27 +46,27 @@ Begin Code for Functions.php around line 165
 ===============================================
 */
 
-function dakota_plains_scripts() {
+function THEME_NAME_scripts() {
 	//styles
 	// Bootstrap
-	wp_enqueue_style( 'dakota-plains-bs-style', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '20141031', true );
-	wp_enqueue_style( 'dakota-plains-bs-theme', get_template_directory_uri() . '/css/bootstrap-theme.min.css', array(), '20141031', true );
+	wp_enqueue_style( 'THEME_NAME-bs-style', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '20141031', true );
+	wp_enqueue_style( 'THEME_NAME-bs-theme', get_template_directory_uri() . '/css/bootstrap-theme.min.css', array(), '20141031', true );
 	// Slick (the slider slider you'll ever need)
-	wp_enqueue_style( 'dakota-plains-slick-style', get_template_directory_uri() . '/css/slick.css', array(), '20141031', false );
+	wp_enqueue_style( 'THEME_NAME-slick-style', get_template_directory_uri() . '/css/slick.css', array(), '20141031', false );
 	// Actual theme stylesheet so changes in the backend will stick
-	wp_enqueue_style( 'dakota-plains-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'THEME_NAME-style', get_stylesheet_uri() );
 
 
 	//scripts
 	// You gotta have modernizr
-	wp_enqueue_script( 'dakota-plains-modernizr', get_template_directory_uri() . '/js/modernizr.js', array(), '20141031', true );
+	wp_enqueue_script( 'THEME_NAME-modernizr', get_template_directory_uri() . '/js/modernizr.js', array(), '20141031', true );
 	// More BS (bootstrap)
-	wp_enqueue_script( 'dakota-plains-bootstrap-min', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '20141031', true );
+	wp_enqueue_script( 'THEME_NAME-bootstrap-min', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '20141031', true );
 	// Underscore_s stuff
-	wp_enqueue_script( 'dakota-plains-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20141031', true );
-	wp_enqueue_script( 'dakota-plains-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	wp_enqueue_script( 'THEME_NAME-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20141031', true );
+	wp_enqueue_script( 'THEME_NAME-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 	// And finally Slick slider js
-	wp_enqueue_script( 'dakota-plains-slick-slider', get_template_directory_uri() . '/js/slick.min.js', array(), '20141021', true );
+	wp_enqueue_script( 'THEME_NAME-slick-slider', get_template_directory_uri() . '/js/slick.min.js', array(), '20141021', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -259,6 +74,7 @@ function dakota_plains_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'dakota_plains_scripts' );
 
+// Add jQuery the right way: http://css-tricks.com/snippets/wordpress/include-jquery-in-wordpress-theme/
 if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
 function my_jquery_enqueue() {
    wp_deregister_script('jquery');
@@ -266,8 +82,14 @@ function my_jquery_enqueue() {
    wp_enqueue_script('jquery');
 }
 
+// End this bit of custom code
 
-
+/*
+In case the next dev who sees this is better than me ...
+I know this is a little heavy. But speed of development trumps speed of load time
+in 99% of our use cases. When I have the time I will trim this workflow and eliminate
+un-used or redundant code.
+*/
 
 
 /*
@@ -276,11 +98,7 @@ END
 ===============================================
 */
 ?>
-
-At the bottom is the "right way to add jquery" according to :
-http://css-tricks.com/snippets/wordpress/include-jquery-in-wordpress-theme/
-
-
+A note on the above code: 
 
 And un-comment line 41 
 or add this line as needed:
@@ -290,9 +108,9 @@ add_theme_support( 'post-thumbnails' );
 
 And finally, paste all this next part at the very bottom of your functions.php :
 
-========================
+===================================================
 Bottom of Functions.php
-========================
+===================================================
 
 
 /**
@@ -490,49 +308,6 @@ function theme_front_page_settings() {
         <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
     </p>
     
-    <!--h3>Social Icons</h3>
-    <h4>Leave Fields Blank if you don't want to use them.</h4>
-    <table class="form-table">
-        <tr>
-            <th scope="row">Paste in the URL of your Facebook PAGE:</th>
-            <td>
-                <input type="text" name="my_theme_options[facebook_url]" size="40" value="<?php echo stripslashes($options["facebook_url"]); ?>" />
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">URL of your Facebook LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[facebook_logo_url]" size="40" value="<?php echo stripslashes($options["facebook_logo_url"]); ?>" />
-            </td>
-        </tr>
-       <tr>
-            <th scope="row">Paste in the URL of your Twitter PAGE:</th>
-            <td>
-                <input type="text" name="my_theme_options[Twitter_url]" size="40" value="<?php echo stripslashes($options["Twitter_url"]); ?>" />
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">URL of your Twitter LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[Twitter_logo_url]" size="40" value="<?php echo stripslashes($options["Twitter_logo_url"]); ?>" />
-            </td>
-        </tr>
-       <tr>
-            <th scope="row">Paste in the URL of your LinkedIN PAGE:</th>
-            <td>
-                <input type="text" name="my_theme_options[linkedin_url]" size="40" value="<?php echo stripslashes($options["linkedin_url"]); ?>" />
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">URL of your LinkedIN LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[linkedin_logo_url]" size="40" value="<?php echo stripslashes($options["linkedin_logo_url"]); ?>" />
-            </td>
-        </tr>        
-    </table>
-    <p class="submit">
-        <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-    </p-->    
 
     <h3>Other Settings</h3>
     
@@ -543,36 +318,7 @@ function theme_front_page_settings() {
                 <input type="text" name="my_theme_options[favicon_url]" size="40" value="<?php echo stripslashes($options["favicon_url"]); ?>" />
             </td>
         </tr>
-        <!--tr>
-            <th scope="row">URL of your Facebook LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[facebook_logo_url]" size="40" value="<?php echo stripslashes($options["facebook_logo_url"]); ?>" />
-            </td>
-        </tr>
-       <tr>
-            <th scope="row">Paste in the URL of your Twitter PAGE:</th>
-            <td>
-                <input type="text" name="my_theme_options[Twitter_url]" size="40" value="<?php echo stripslashes($options["Twitter_url"]); ?>" />
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">URL of your Twitter LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[Twitter_logo_url]" size="40" value="<?php echo stripslashes($options["Twitter_logo_url"]); ?>" />
-            </td>
-        </tr>
-       <tr>
-            <th scope="row">Paste in the URL of your LinkedIN PAGE:</th>
-            <td>
-                <input type="text" name="my_theme_options[linkedin_url]" size="40" value="<?php echo stripslashes($options["linkedin_url"]); ?>" />
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">URL of your LinkedIN LOGO (upload in Media section first):</th>
-            <td>
-                <input type="text" name="my_theme_options[linkedin_logo_url]" size="40" value="<?php echo stripslashes($options["linkedin_logo_url"]); ?>" />
-            </td>
-        </tr-->        
+               
     </table>
     <p class="submit">
         <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
@@ -595,22 +341,20 @@ function string_limit_words($string, $word_limit)
   return implode(' ', $words);
 }
 
-========================
+=============================
 END Bottom of Functions.php
-========================
+=============================
 
 
 
 
-
+}?>
 ===================
 
 Php and HTML bits 
 by section
 
 ===================
-
-
 
 
 ===================
@@ -647,24 +391,25 @@ left: <?php echo get_option( 'my_theme_options[c_left]', $options["c_left"] ); ?
 <?php endif; ?>
 <!--//  dynamic meta description -->
 
-<?php // make cool modern stuff compatible with old crappy browsers 
-/*
-// Here's the bootstrap demo theme version, I think I like it:
+<?php /* // make cool modern stuff compatible with old crappy browsers 
+// Here is two versions of the same thing, pick ONE
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-*/
-?>
- <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
- <!--[if lt IE 9]>
-   <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+// Version ONE
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->   
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
 
+// Version TWO
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+   <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+<![endif]-->
+*/
+?>
 
 ===================
 Front page / Pages
@@ -803,15 +548,14 @@ To make the menu on mobile work :
     float:none;
 }
 
-
-	.slide-caption {
+.slide-caption {
 		margin-left: 20%;
 		padding: 20px;
 		position: absolute;
 		top: 145px;
 		width: 50%;
-	}
-	.slide-caption p {
+}
+.slide-caption p {
 		color: #fff;
 		font-family: "Open Sans",sans-serif;
 		font-size: 4.5em;
@@ -819,4 +563,193 @@ To make the menu on mobile work :
 		line-height: 1em;
 		margin-bottom: 7px;
 		text-shadow: 2px 2px 2px #000;
-	}
+}
+
+==============================
+Extra widgets
+==============================
+
+
+Find the one little "register_sidebar" they have, and paste in these below it:
+
+========================================
+A huge set of commented out widgets
+========================================
+
+register_sidebar(array(
+    'name'          => __('Primary', 'THEME_NAME'),
+    'id'            => 'sidebar-primary',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));
+
+  register_sidebar(array(
+    'name'          => __('Footer', 'THEME_NAME'),
+    'id'            => 'sidebar-footer',
+    'description'   => 'Top left footer branding area',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));
+
+  register_sidebar(array(
+    'name'          => __('Footer 2', 'THEME_NAME'),
+    'id'            => 'sidebar-footer-2',
+    'description'   => 'Copyright info',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));
+
+  register_sidebar(array(
+    'name'          => __('Footer 3', 'THEME_NAME'),
+    'id'            => 'sidebar-footer-3',
+    'description'   => 'Bottom Left Menu Area',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));
+  
+  register_sidebar(array(
+    'name'          => __('Footer Copyright Left', 'THEME_NAME'),
+    'id'            => 'sidebar-footer-4',
+    'description'   => 'Below Footer Widgets, LEFT SIDE',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));  
+  register_sidebar(array(
+    'name'          => __('Footer Copyright Right', 'THEME_NAME'),
+    'id'            => 'sidebar-footer-5',
+    'description'   => 'Below Footer Widgets, RIGHT SIDE',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));   
+  register_sidebar(array(
+    'name'          => __('Far right Wider footer widget', 'THEME_NAME'),
+    'id'            => 'sidebar-footer-6',
+    'description'   => 'Far right wide footer section with icons at the top.',
+    'before_widget' => '<section class="widget %1$s %2$s"><div class="widget-inner">',
+    'after_widget'  => '</div></section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>',
+  ));
+
+
+======================================
+
+Possible to do list and working notes
+
+======================================
+
+2015 Ultimate WP Starter theme
+
+Ok, Ashley added to folder and gallery.html added for demo
+from http://ashleydw.github.io/lightbox/
+
+TO DO:
+
+Maybe? https://github.com/taylormsj/acf-cf7 - CF7 for ACF :)
+WP Security Audit Log : https://wordpress.org/plugins/wp-security-audit-log/
+https://wordpress.org/plugins/ip-blacklist-cloud/
+
+All I want from Bootstrap it seems is the col-md-* type
+grid code and the responsive utilities. As of todays version of 
+Bootstrap (11.17.14 v3.3.1) here's what you need: 
+line 1389 - 2296 - includes basic table styling
+and 
+6038 - the end of the doc. 
+
+I have included it in this folder, 
+as bootstrap.darklit.css and bootstrap.darklit.min.css
+
+
+
+
+
+Export field groups to PHP from ACF and include in theme :
+
+if(function_exists("register_field_group"))
+{
+	register_field_group(array (
+		'id' => 'acf_home-page',
+		'title' => 'Home Page',
+		'fields' => array (
+			array (
+				'key' => 'field_545fcdb26deda',
+				'label' => 'Green Area Text',
+				'name' => 'green_area_text',
+				'type' => 'textarea',
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => '',
+				'formatting' => 'br',
+			),
+			array (
+				'key' => 'field_545fce512de29',
+				'label' => 'Green Area Name',
+				'name' => 'green_area_name',
+				'type' => 'text',
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'formatting' => 'html',
+				'maxlength' => '',
+			),
+		),
+		'location' => array (
+			array (
+				array (
+					'param' => 'page',
+					'operator' => '==',
+					'value' => '508',
+					'order_no' => 0,
+					'group_no' => 0,
+				),
+			),
+		),
+		'options' => array (
+			'position' => 'normal',
+			'layout' => 'no_box',
+			'hide_on_screen' => array (
+			),
+		),
+		'menu_order' => 0,
+	));
+}
+
+// documentation
+
+Instructions
+
+    Copy the PHP code generated
+    Paste into your functions.php file
+    To activate any Add-ons, edit and use the code in the first few lines.
+
+
+Notes
+
+Registered field groups will not appear in the list of editable field groups. This is useful for including fields in themes.
+
+Please note that if you export and register field groups within the same WP, you will see duplicate fields on your edit screens. To fix this, please move the original field group to the trash or remove the code from your functions.php file.
+
+
+Include in theme
+
+The Advanced Custom Fields plugin can be included within a theme. To do so, move the ACF plugin inside your theme and add the following code to your functions.php file:
+
+include_once('advanced-custom-fields/acf.php');
+
+To remove all visual interfaces from the ACF plugin, you can use a constant to enable lite mode. Add the following code to your functions.php file before the include_once code:
+
+define( 'ACF_LITE', true );
